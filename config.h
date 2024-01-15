@@ -1,0 +1,31 @@
+
+// array of different xiaomi flora MAC addresses
+char* FLORA_DEVICES[][2] = {
+  "5C:85:7E:ZZ:YY:XX", "blablabla"
+};
+
+#define ArrayCount(array) (sizeof array / sizeof array[0])
+
+// sleep between to runs in seconds ~> default: 30 * 60 ~> 1800
+#define SLEEP_DURATION 30 * 60
+// emergency hibernate countdown in seconds ~> default: 3 * 60 ~> 180
+#define EMERGENCY_HIBERNATE 3 * 60
+// how often should the battery be read - in run count ~> default: 6
+#define BATTERY_INTERVAL 6
+// how often should a device be retried in a run when something fails ~> default: 3
+#define RETRY 3
+
+#define WIFI_SSID ""
+#define WIFI_PASSWORD ""
+
+const char* ntpServer = "pool.ntp.org";
+#define TIMEZONE "CET-1CEST,M3.5.0,M10.5.0/3"
+
+#define PROJECT_ID "" //Taken from "project_id" key in JSON file.
+#define CLIENT_EMAIL "" //Taken from "client_email" key in JSON file.
+const char PRIVATE_KEY[] PROGMEM = "-----BEGIN PRIVATE KEY----- BLABLABLA \n-----END PRIVATE KEY-----\n"; //Taken from "private_key" key in JSON file.
+
+// Your email to share access to spreadsheet
+#define USER_EMAIL ""
+
+#define SPREADSHEET_ID "" 
