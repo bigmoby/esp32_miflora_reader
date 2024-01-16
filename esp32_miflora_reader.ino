@@ -213,15 +213,20 @@ bool readFloraDataCharacteristic(BLERemoteService* floraService, String deviceId
   Serial.println(" ...");
   Serial.println("------------------------");
 
+  String sheetName = deviceName + "_sensor";
+  String rangeValue = sheetName + "!A2:D2";
+
   FirebaseJson valueRange;
+  valueRange.add("range", rangeValue);
   valueRange.add("majorDimension", "COLUMNS");
-  valueRange.set("values/[0]/[0]", timeStringBuff); // column B/row 1
+  valueRange.set("values/[0]/[0]", timeStringBuff); // column A/row 1
   valueRange.set("values/[1]/[0]", deviceName); // column B/row 1
   valueRange.set("values/[2]/[0]", temperature); // column C/row 1
   valueRange.set("values/[3]/[0]", moisture); // column D/row 1
 
-  // For Google Sheet API ref doc, go to https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append
-  bool success = GSheet.values.append(&response /* returned response */, SPREADSHEET_ID /* spreadsheet Id to append */, "Sheet1!A2" /* range to append */, &valueRange /* data range to append */);
+
+  // For Google Sheet API ref doc, go to https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/update
+  bool success = GSheet.values.update(&response /* returned response */, SPREADSHEET_ID /* spreadsheet Id to update */, rangeValue /* range to update */, &valueRange /* data to update */);
 
   if (success) {
     //response.toString(Serial, true);
@@ -292,15 +297,20 @@ bool readFloraBatteryCharacteristic(BLERemoteService* floraService, String devic
   Serial.println("");
   // client.publish((baseTopic + "battery").c_str(), buffer);
 
+  String sheetName = deviceName + "_battery";
+  String rangeValue = sheetName + "!A2:C2";
+
   FirebaseJson valueRange;
+  valueRange.add("range", rangeValue);
   valueRange.add("majorDimension", "COLUMNS");
-  valueRange.set("values/[0]/[0]", timeStringBuff); // column B/row 1
-  valueRange.set("values/[1]/[0]", deviceName); // column B/row 1
-  valueRange.set("values/[2]/[0]", battery); // column C/row 1
+  valueRange.set("values/[0]/[0]", timeStringBuff); // column A/row 2
+  valueRange.set("values/[1]/[0]", deviceName); // column B/row 2
+  valueRange.set("values/[2]/[0]", battery); // column C/row 2
 
   String response;
-  // For Google Sheet API ref doc, go to https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append
-  bool success = GSheet.values.append(&response /* returned response */, SPREADSHEET_ID /* spreadsheet Id to append */, "Sheet2!A2" /* range to append */, &valueRange /* data range to append */);
+
+  // For Google Sheet API ref doc, go to https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/update
+  bool success = GSheet.values.update(&response /* returned response */, SPREADSHEET_ID /* spreadsheet Id to update */, rangeValue /* range to update */, &valueRange /* data to update */);
 
   if (success) {
     //response.toString(Serial, true);
